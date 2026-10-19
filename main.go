@@ -13,6 +13,8 @@ func main() {
 	switch os.Args[1] {
 	case "jouer":
 		fmt.Println("nouvelle partie")
+		pseudo := askPseudo()
+		fmt.Println("Bonjour:", pseudo)
 	case "reprendre":
 		fmt.Println("reprise de la partie")
 	case "score":
