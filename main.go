@@ -13,7 +13,11 @@ func main() {
 	switch os.Args[1] {
 	case "jouer":
 		fmt.Println("nouvelle partie")
-		pseudo := askPseudo()
+		pseudo, err := askPseudo()
+		if err != nil {
+			fmt.Println("Erreur :", err)
+			os.Exit(1)
+		}
 		fmt.Println("Bonjour:", pseudo)
 	case "reprendre":
 		fmt.Println("reprise de la partie")
