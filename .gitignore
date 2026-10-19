@@ -1,0 +1,13 @@
+# binaires
+*.exe
+pendu
+
+# fichiers generes par le jeu en local
+save.json
+scores.csv
+
+# editeur / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
