@@ -19,3 +19,26 @@ func motValide(mot string) bool {
 	}
 	return nbLettres > 0
 }
+
+func LireMots(nomFichier string) ([]string, error) {
+	contenu, err := os.ReadFile(nomFichier)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return nil, fmt.Errorf("le fichier %s n'existe pas : %w", nomFichier, err)
+		}
+		return nil, fmt.Errorf("impossible de lire %s : %w", nomFichier, err)
+	}
+
+	var mots []string
+	for _, ligne := range strings.Split(string(contenu), "\n") {
+		mot := strings.ToLower(strings.TrimSpace(ligne))
+		if motValide(mot) {
+			mots = append(mots, mot)
+		}
+	}
+
+	if len(mots) == 0 {
+		return nil, fmt.Errorf("aucun mot valide dans %s", nomFichier)
+	}
+	return mots, nil
+}
