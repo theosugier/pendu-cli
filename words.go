@@ -42,3 +42,21 @@ func LireMots(nomFichier string) ([]string, error) {
 	}
 	return mots, nil
 }
+
+func ChoisirLettre(mot string) string {
+	for {
+		c := mot[rand.IntN(len(mot))]
+		if c != '-' {
+			return string(c)
+		}
+	}
+}
+
+func NouveauMot() (string, string, error) {
+	mots, err := LireMots("mot.txt")
+	if err != nil {
+		return "", "", fmt.Errorf("choix du mot : %w", err)
+	}
+	mot := mots[rand.IntN(len(mots))]
+	return mot, ChoisirLettre(mot), nil
+}
