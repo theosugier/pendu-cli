@@ -10,13 +10,13 @@ func afficherMot(mot string, lettres []string) {
 		if mot[i] == '-' { // si cest un tiré jaffiche direct ( mot composé )
 			fmt.Print("- ")
 		} else { // je verif si le car a deja ete proposé
-			trouvé := false
+			trouve := false
 			for _, l := range lettres {
 				if l == strings.ToLower(string(mot[i])) { // je compare en min pour ignore la case 
-					trouvé = true
+					trouve = true
 				}
 			}
-			if trouvé { // si la lettre a ete trv je laffiche
+			if trouve { // si la lettre a ete trv je laffiche
 				fmt.Print(strings.ToLower(string(mot[i])) + " ")
 			} else {
 				fmt.Print("_ ") // sinon je cache avec "_"
