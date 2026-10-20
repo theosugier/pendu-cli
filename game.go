@@ -5,27 +5,27 @@ import (
 	"strings"
 )
 
-//ProposerMot vérifie que le joueur qui a mis mot est correct
+// ProposerMot vérifie que le joueur qui a mis mot est correct
 func ProposerMot(proposition string, mot string, essais int) (int, bool, error) {
-		proposition = strings.ToLower(strings.TrimSpace(proposition))
+	proposition = strings.ToLower(strings.TrimSpace(proposition))
 
-		//n'autorise pas à tenter un mot si il y a moins de deux essais
-		if essais < 2 {
-				return essais, false, fmt.Errorf("il faut au moins 2 essais en stock pour proposer de mettre un mot en entier si non je decline l'offre hahahahah")
-		}
+	//n'autorise pas à tenter un mot si il y a moins de deux essais
+	if essais < 2 {
+		return essais, false, fmt.Errorf("il faut au moins 2 essais en stock pour proposer de mettre un mot en entier si non je decline l'offre hahahahah")
+	}
 
-		//refuse le mot mis si ce n'est pas le bon 
-		if len(proposition) != len(mot) {
-				return essais, false, fmt.Errorf("le mot doit contenir %d lettres", len(mot))
-		}
+	//refuse le mot mis si ce n'est pas le bon
+	if len(proposition) != len(mot) {
+		return essais, false, fmt.Errorf("le mot doit contenir %d lettres", len(mot))
+	}
 
-		//obtention de la victoire en cas de trouveent du mot caché
-		if proposition == mot {
-				return essais, true, nil
-		}
+	//obtention de la victoire en cas de trouveent du mot caché
+	if proposition == mot {
+		return essais, true, nil
+	}
 
-		//retire 2essais en cas de faute et envoie un "false" 
-		return essais -2, false, nil
+	//retire 2essais en cas de faute et envoie un "false"
+	return essais - 2, false, nil
 }
 
 type Sauvegarde struct { // fiche d'une partie, utile pour jouer + sauvegarder en json
@@ -33,4 +33,14 @@ type Sauvegarde struct { // fiche d'une partie, utile pour jouer + sauvegarder e
 	Mot     string   `json:"mot"`
 	Lettres []string `json:"lettres"`
 	Essais  int      `json:"essais"`
+}
+
+func jouerPartie(partie Sauvegarde) {
+	for partie.Essais > 0 { // tant quon a des essaies
+		afficherMot(partie.Mot, partie.Lettres) // affiche mot avk trruct
+		fmt.Println("Essais restants :", partie.Essais)
+		lettres := strings.Join(partie.Lettres, " ") // affiche lettres séparer despaces sinon sa serais dnas tableau
+		fmt.Println("Lettres proposées :", lettres)
+		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
+	}
 }
