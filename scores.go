@@ -23,3 +23,13 @@ func EnregistrerScore(pseudo string, statut string, essais int, mot string, lett
 	_, err = fmt.Fprintf(f, "%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
 	return err
 }
+
+//affiche tous les scores qui sont dans le fichier
+func AfficherScores() error {
+		contenu, err := os.ReadFile("scores.csv")
+		if err != nil {
+			// si le ficjhier existe pas y a  pas encore de parties
+			fmt.Println("aucune partie")
+			return nil
+		}
+}	
