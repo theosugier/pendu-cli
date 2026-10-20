@@ -41,6 +41,14 @@ func jouerPartie(partie Sauvegarde) {
 		fmt.Println("Essais restants :", partie.Essais)
 		lettres := strings.Join(partie.Lettres, " ") // affiche lettres séparer despaces sinon sa serais dnas tableau
 		fmt.Println("Lettres proposées :", lettres)
+		fmt.Print("> ")
+		ligne, err := lecteur.ReadString('\n')
+		if err != nil {
+			fmt.Println("Erreur :", err)
+			return
+		}
+		saisie := strings.ToLower(strings.TrimSpace(ligne))
+		fmt.Println("Tu as tapé :", saisie)
 		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
 	}
 }
