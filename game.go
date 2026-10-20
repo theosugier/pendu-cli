@@ -52,6 +52,16 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
 			continue
 		}
+		deja := false
+		for _, l := range partie.Lettres {
+			if l == saisie {
+				deja = true
+			}
+		}
+		if deja {
+			fmt.Println("Erreur : la lettre", saisie, "a déjà été proposée.")
+			continue
+		}
 		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
 	}
 }
