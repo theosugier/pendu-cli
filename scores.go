@@ -9,12 +9,17 @@ import (
 	"time"
 )
 
-// enregistre le score du joueur a la fin de la partie dans scores.csv
+// enregistre le score a la fin de la partie
 func EnregistrerScore(pseudo string, statut string, essais int, mot string, lettres []string) error {
-	// regarde si le fichier existe deja puis l'ouvre sinon il le creer
-	_, errStat := os.Stat("scores.csv")
 	f, err := os.OpenFile("scores.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		return fmt.Errorf("impossible d'ouvrir scores.csv : %w", err)
+		return err
 	}
+	// on ferme le fichier a la fin de la fonction
+	defer f.Close()
+
+	date := time.Now().Format("2006-01-02 15:04")
+	// on ecrit la ligne dans le fichier avec des virgules entre chaque info
+	_, err = fmt.Fprintf(f, "%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
+	return err
 }
