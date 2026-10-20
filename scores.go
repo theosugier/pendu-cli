@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/csv"
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -32,4 +30,20 @@ func AfficherScores() error {
 			fmt.Println("aucune partie")
 			return nil
 		}
+
+		fmt.Println("Pseudo statut essais mot date")
+		//on coupe le fichier ligne par ligne
+		lignes := strings.Split(string(contenu), "\n")
+		for _, ligne := range lignes {
+				// on coupe la ligne a chaque virgule 
+				l := strings.Split(ligne, ",")
+				//si la ligne est vide ou abime on la saute
+				if len(l) < 6 {
+						continue
+				}
+				fmt.Println(l[0], l[1], l[2], l[3], l[4], l[5])
+		}
+		return nil
+
 }	
+	
