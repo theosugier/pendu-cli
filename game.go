@@ -48,7 +48,10 @@ func jouerPartie(partie Sauvegarde) {
 			return
 		}
 		saisie := strings.ToLower(strings.TrimSpace(ligne))
-		fmt.Println("Tu as tapé :", saisie)
+		if saisie == "" {
+			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
+			continue
+		}
 		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
 	}
 }
