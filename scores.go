@@ -16,7 +16,7 @@ func EnregistrerScore(pseudo string, statut string, essais int, mot string, lett
 	// on ferme le fichier a la fin de la fonction
 	defer f.Close()
 
-	date := time.Now().Format("2006-01-02 15:04")
+	date := time.Now().Format("2026-01-02 15:04")
 	// on ecrit la ligne dans le fichier avec des virgules entre chaque info
 	_, err = fmt.Fprintf(f, "%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
 	return err
@@ -26,7 +26,7 @@ func EnregistrerScore(pseudo string, statut string, essais int, mot string, lett
 func AfficherScores() error {
 		contenu, err := os.ReadFile("scores.csv")
 		if err != nil {
-			// si le ficjhier existe pas y a  pas encore de parties
+			// si le fichier existe pas y a  pas encore de parties
 			fmt.Println("aucune partie")
 			return nil
 		}
@@ -46,4 +46,3 @@ func AfficherScores() error {
 		return nil
 
 }	
-	
