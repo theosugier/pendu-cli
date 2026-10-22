@@ -37,7 +37,7 @@ type Sauvegarde struct { // fiche d'une partie, utile pour jouer + sauvegarder e
 
 func jouerPartie(partie Sauvegarde) {
 	for partie.Essais > 0 { // tant quon a des essaies
-		afficherMot(partie.Mot, partie.Lettres) // affiche mot avk trruct
+		fmt.Println(AfficherMot(partie.Mot, strings.Join(partie.Lettres, ""), false)) // affiche le mot avec les lettres trouvées
 		fmt.Println("Essais restants :", partie.Essais)
 		lettres := strings.Join(partie.Lettres, " ") // affiche lettres séparer despaces sinon sa serais dnas tableau
 		fmt.Println("Lettres proposées :", lettres)
