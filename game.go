@@ -66,6 +66,7 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
 			continue
 		}
+		partie.Lettres = append(partie.Lettres, saisie)
 		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
 	}
 }
