@@ -66,6 +66,10 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
 			continue
 		}
+		if len(saisie) > 1 {
+			fmt.Println("pas encore possible .")
+			continue
+		}
 		partie.Lettres = append(partie.Lettres, saisie)
 		if strings.Contains(partie.Mot, saisie) == true {
 			fmt.Println("Bien joué, la lettre", saisie, "est dans le mot.")
