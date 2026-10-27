@@ -16,7 +16,7 @@ func EnregistrerScore(pseudo string, statut string, essais int, mot string, lett
 	// on ferme le fichier a la fin de la fonction
 	defer f.Close()
 
-	date := time.Now().Format("2026-01-02 15:04")
+	date := time.Now().Format("2026-10-20 12:20")
 	// on ecrit la ligne dans le fichier avec des virgules entre chaque info
 	_, err = fmt.Fprintf(f, "%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
 	return err
