@@ -71,7 +71,7 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Bien joué, la lettre", saisie, "est dans le mot.")
 		} else {
 			fmt.Println("Rate la lettre", saisie, "n'est pas dans le mot.")
+			partie.Essais-- // on perd un essaie
 		}
-		partie.Essais-- // on perd un essaie
 	}
 }
