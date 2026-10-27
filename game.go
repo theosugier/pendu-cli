@@ -67,6 +67,9 @@ func jouerPartie(partie Sauvegarde) {
 			continue
 		}
 		partie.Lettres = append(partie.Lettres, saisie)
+		if strings.Contains(partie.Mot, saisie) == true {
+			fmt.Println("Bien joué, la lettre", saisie, "est dans le mot.")
+		}
 		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
 	}
 }
