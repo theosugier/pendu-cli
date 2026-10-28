@@ -77,5 +77,9 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Rate la lettre", saisie, "n'est pas dans le mot.")
 			partie.Essais-- // on perd un essaie
 		}
+		if MotTrouve(partie.Mot, strings.Join(partie.Lettres, "")) {
+			fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
+			return
+		}
 	}
 }
