@@ -30,7 +30,11 @@ func main() {
 		fmt.Println("Erreur : reprendre n'est pas encore disponible.")
 		os.Exit(1)
 	case "score": // si on tape score alors
-		fmt.Println("scores:")
+		err := AfficherScores()
+		if err != nil {
+			fmt.Println("Erreur :", err)
+			os.Exit(1)
+		}
 	default:
 		fmt.Println("Usage : go run . <jouer|reprendre|score>") // result si mauvais saisis autre que les cases
 		os.Exit(1)
