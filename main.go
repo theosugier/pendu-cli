@@ -18,9 +18,14 @@ func main() {
 			fmt.Println("Erreur :", err)
 			os.Exit(1)
 		}
-		fmt.Println("Bonjour:", pseudo)                                                               // affiche le pseudo
-		partie := Sauvegarde{Pseudo: pseudo, Mot: "porte-monnaie", Lettres: []string{"e"}, Essais: 6} // crée var partie qui prend la struct sauvegarde ( fiche vide ) et on la remplis
-		jouerPartie(partie)                                                                           // appel jouerPartie pour lancer la parti
+		fmt.Println("Bonjour:", pseudo) // affiche le pseudo
+		mot, lettre, err := NouveauMot()
+		if err != nil {
+			fmt.Println("Erreur :", err)
+			os.Exit(1)
+		}
+		partie := Sauvegarde{Pseudo: pseudo, Mot: mot, Lettres: []string{lettre}, Essais: 5}
+		jouerPartie(partie) // appel jouerPartie pour lancer la parti
 	case "reprendre": // si on tape reprendre alors
 		fmt.Println("reprise de la partie")
 	case "score": // si on tape score alors

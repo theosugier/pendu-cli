@@ -48,7 +48,39 @@ func jouerPartie(partie Sauvegarde) {
 			return
 		}
 		saisie := strings.ToLower(strings.TrimSpace(ligne))
-		fmt.Println("Tu as tapé :", saisie)
-		partie.Essais-- // pour eviter boucle infini on enleve -1 au essaie a chaque tour
+		if saisie == "" {
+			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
+			continue
+		}
+		deja := false
+		for _, l := range partie.Lettres {
+			if l == saisie {
+				deja = true
+			}
+		}
+		if deja {
+			fmt.Println("Erreur : la lettre", saisie, "a déjà été proposée.")
+			continue
+		}
+		if len(saisie) == 1 && (saisie[0] < 'a' || saisie[0] > 'z') {
+			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
+			continue
+		}
+		if len(saisie) > 1 {
+			fmt.Println("pas encore possible .")
+			continue
+		}
+		partie.Lettres = append(partie.Lettres, saisie)
+		if strings.Contains(partie.Mot, saisie) == true {
+			fmt.Println("Bien joué, la lettre", saisie, "est dans le mot.")
+		} else {
+			fmt.Println("Rate la lettre", saisie, "n'est pas dans le mot.")
+			partie.Essais-- // on perd un essaie
+		}
+		if MotTrouve(partie.Mot, strings.Join(partie.Lettres, "")) {
+			fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
+			return
+		}
 	}
+	fmt.Println("Perdu", partie.Pseudo, "le mot etait", partie.Mot)
 }
