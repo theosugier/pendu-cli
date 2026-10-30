@@ -24,7 +24,7 @@ func main() {
 			fmt.Println("Erreur :", err)
 			os.Exit(1)
 		}
-		partie := Sauvegarde{Pseudo: pseudo, Mot: mot, Lettres: []string{lettre}, Essais: 5}
+		partie := Sauvegarde{Pseudo: pseudo, Mot: mot, Lettres: []string{lettre}, Essais: 6}
 		jouerPartie(partie) // appel jouerPartie pour lancer la parti
 	case "reprendre": // si on tape reprendre alors
 		fmt.Println("reprise de la partie")
