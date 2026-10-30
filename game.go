@@ -82,6 +82,7 @@ func jouerPartie(partie Sauvegarde) {
 				return
 			}
 			fmt.Println("Rate ce n'est pas le mot.")
+			continue
 		}
 		partie.Lettres = append(partie.Lettres, saisie)
 		if strings.Contains(partie.Mot, saisie) == true {
