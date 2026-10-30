@@ -11,7 +11,7 @@ func ProposerMot(proposition string, mot string, essais int) (int, bool, error) 
 
 	//n'autorise pas à tenter un mot si il y a moins de deux essais
 	if essais < 2 {
-		return essais, false, fmt.Errorf("il faut au moins 2 essais en stock pour proposer de mettre un mot en entier si non je decline l'offre hahahahah")
+		return essais, false, fmt.Errorf("il faut au moins 2 essais pour proposer un mot")
 	}
 
 	//refuse le mot mis si ce n'est pas le bon
@@ -66,8 +66,22 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
 			continue
 		}
+		if saisie == "!save" {
+			fmt.Println("La sauvegarde n'est pas encore disponible.")
+			continue
+		}
 		if len(saisie) > 1 {
-			fmt.Println("pas encore possible .")
+			essais, gagne, err := ProposerMot(saisie, partie.Mot, partie.Essais)
+			if err != nil {
+				fmt.Println("Erreur :", err)
+				continue
+			}
+			partie.Essais = essais
+			if gagne {
+				fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
+				return
+			}
+			fmt.Println("Rate ce n'est pas le mot.")
 			continue
 		}
 		partie.Lettres = append(partie.Lettres, saisie)
