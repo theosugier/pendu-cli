@@ -78,6 +78,10 @@ func jouerPartie(partie Sauvegarde) {
 			}
 			partie.Essais = essais
 			if gagne {
+				err := EnregistrerScore(partie.Pseudo, "victoire", partie.Essais, partie.Mot, partie.Lettres)
+				if err != nil {
+					fmt.Println("Erreur :", err)
+				}
 				fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
 				return
 			}
@@ -92,6 +96,10 @@ func jouerPartie(partie Sauvegarde) {
 			partie.Essais-- // on perd un essaie
 		}
 		if MotTrouve(partie.Mot, strings.Join(partie.Lettres, "")) {
+			err := EnregistrerScore(partie.Pseudo, "victoire", partie.Essais, partie.Mot, partie.Lettres)
+			if err != nil {
+				fmt.Println("Erreur :", err)
+			}
 			fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
 			return
 		}
