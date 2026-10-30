@@ -71,8 +71,17 @@ func jouerPartie(partie Sauvegarde) {
 			continue
 		}
 		if len(saisie) > 1 {
-			fmt.Println("pas encore possible .")
-			continue
+			essais, gagne, err := ProposerMot(saisie, partie.Mot, partie.Essais)
+			if err != nil {
+				fmt.Println("Erreur :", err)
+				continue
+			}
+			parite.Essais = essais
+			if gagne {
+				fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
+				return
+			}
+			fmt.Println("Rate ce n'est pas le mot.")
 		}
 		partie.Lettres = append(partie.Lettres, saisie)
 		if strings.Contains(partie.Mot, saisie) == true {
