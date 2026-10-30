@@ -7,21 +7,29 @@ import (
 	"strings"
 )
 
-// vérifie que le mot a seulement des lettres minuscules et des tirets
+// regarde si le mot est bon
 func motValide(mot string) bool {
-	lettres := 0
+	nbLettres := 0
 	for _, c := range mot {
 		if c >= 'a' && c <= 'z' {
-			lettres++
-		} else if c != '-' {
+			// sa c une lettre
+			nbLettres++
+		} else if c == '-' {
+			// le tire est ok
+		} else {
+			// pas bon sa
 			return false
 		}
 	}
-	// il faut au moins une lettre
-	return lettres > 0
+	// faut au moin une lettre
+	if nbLettres > 0 {
+		return true
+	} else {
+		return false
+	}
 }
 
-// lit le fichier et rend la liste des mots valides
+// lit le fichier et done les mots
 func LireMots(nomFichier string) ([]string, error) {
 	contenu, err := os.ReadFile(nomFichier)
 	if err != nil {
@@ -29,35 +37,47 @@ func LireMots(nomFichier string) ([]string, error) {
 	}
 
 	var mots []string
-	for _, ligne := range strings.Split(string(contenu), "\n") {
-		// on enlève les espaces et on met en minuscules
-		mot := strings.ToLower(strings.TrimSpace(ligne))
+	lignes := strings.Split(string(contenu), "\n")
+	for _, ligne := range lignes {
+		// on enleve les espaces et les magiscules
+		mot := strings.TrimSpace(ligne)
+		mot = strings.ToLower(mot)
 		if motValide(mot) {
+			// mot bon donc on le met dans la liste
 			mots = append(mots, mot)
 		}
 	}
 
 	if len(mots) == 0 {
 		return nil, fmt.Errorf("aucun mot valide")
+	} else {
+		return mots, nil
 	}
-	return mots, nil
 }
 
-// choisit une lettre au hasard dans le mot (pas un tiret)
+// prend une letre au hasard
 func ChoisirLettre(mot string) string {
-	// on enlève les tirets du mot
-	lettres := strings.ReplaceAll(mot, "-", "")
-	// on prend une lettre au hasard
+	// on garde just les lettres sans les tires
+	lettres := ""
+	for _, c := range mot {
+		if c != '-' {
+			lettres = lettres + string(c)
+		}
+	}
+	// letre au hasard
 	i := rand.Intn(len(lettres))
 	return string(lettres[i])
 }
 
-// choisit un mot au hasard et la lettre à montrer au début
+// prend un mot au hasard et une letre pour commencer
 func NouveauMot() (string, string, error) {
 	mots, err := LireMots("mot.txt")
 	if err != nil {
 		return "", "", err
 	}
-	mot := mots[rand.Intn(len(mots))]
-	return mot, ChoisirLettre(mot), nil
+	// un mot au hasard dans la liste
+	i := rand.Intn(len(mots))
+	mot := mots[i]
+	lettre := ChoisirLettre(mot)
+	return mot, lettre, nil
 }
