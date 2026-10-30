@@ -27,7 +27,8 @@ func main() {
 		partie := Sauvegarde{Pseudo: pseudo, Mot: mot, Lettres: []string{lettre}, Essais: 6}
 		jouerPartie(partie) // appel jouerPartie pour lancer la parti
 	case "reprendre": // si on tape reprendre alors
-		fmt.Println("reprise de la partie")
+		fmt.Println("Erreur : reprendre n'est pas encore disponible.")
+		os.Exit(1)
 	case "score": // si on tape score alors
 		fmt.Println("scores:")
 	default:
