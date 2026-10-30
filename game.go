@@ -82,4 +82,5 @@ func jouerPartie(partie Sauvegarde) {
 			return
 		}
 	}
+	fmt.Println("Perdu", partie.Pseudo, "le mot etait", partie.Mot)
 }
