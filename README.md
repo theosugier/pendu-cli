@@ -6,6 +6,7 @@ Le programme choisit un mot au hasard dans mot.txt et le joueur doit le deviner 
 
 Prerequis
 Go 1.22 ou plus recent.
+Un terminal qui affiche les couleurs (celui de VS Code marche bien).
 
 Installation
 git clone https://github.com/theosugier/pendu-cli.git
