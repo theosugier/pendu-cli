@@ -11,7 +11,7 @@ func ProposerMot(proposition string, mot string, essais int) (int, bool, error) 
 
 	//n'autorise pas à tenter un mot si il y a moins de deux essais
 	if essais < 2 {
-		return essais, false, fmt.Errorf("il faut au moins 2 essais en stock pour proposer de mettre un mot en entier si non je decline l'offre hahahahah")
+		return essais, false, fmt.Errorf("il faut au moins 2 essais pour proposer un mot")
 	}
 
 	//refuse le mot mis si ce n'est pas le bon
