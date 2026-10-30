@@ -66,6 +66,10 @@ func jouerPartie(partie Sauvegarde) {
 			fmt.Println("Erreur : saisissez une lettre, un mot ou !save.")
 			continue
 		}
+		if saisie == "!save" {
+			fmt.Println("La sauvegarde n'est pas encore disponible.")
+			continue
+		}
 		if len(saisie) > 1 {
 			fmt.Println("pas encore possible .")
 			continue
