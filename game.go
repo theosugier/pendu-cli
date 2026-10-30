@@ -96,5 +96,9 @@ func jouerPartie(partie Sauvegarde) {
 			return
 		}
 	}
+	err := EnregistrerScore(partie.Pseudo, "defaite", partie.Essais, partie.Mot, partie.Lettres)
+	if err != nil {
+		fmt.Println("Erreur :", err)
+	}
 	fmt.Println("Perdu", partie.Pseudo, "le mot etait", partie.Mot)
 }
