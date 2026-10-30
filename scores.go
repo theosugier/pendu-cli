@@ -7,42 +7,52 @@ import (
 	"time"
 )
 
-// enregistre le score a la fin de la partie
+// enregistre le score à la fin de la partie
 func EnregistrerScore(pseudo string, statut string, essais int, mot string, lettres []string) error {
-	f, err := os.OpenFile("scores.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// on lit l'ancien fichier
+	ancien, err := os.ReadFile("scores.csv")
+	texte := ""
 	if err != nil {
-		return err
+		// le fichier n'existe pas encore, on part de zéro
+		texte = ""
+	} else {
+		// le fichier existe, on garde son contenu
+		texte = string(ancien)
 	}
-	// on ferme le fichier a la fin de la fonction
-	defer f.Close()
 
-	date := time.Now().Format("2026-10-20 12:20")
-	// on ecrit la ligne dans le fichier avec des virgules entre chaque info
-	_, err = fmt.Fprintf(f, "%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
-	return err
+	// la date d'aujourd'hui (ce format est toujours le même en Go)
+	date := time.Now().Format("2006-01-02 15:04")
+
+	// on prépare la nouvelle ligne avec des virgules
+	ligne := fmt.Sprintf("%s,%s,%d,%s,%s,%s\n", pseudo, statut, essais, mot, strings.Join(lettres, ""), date)
+
+	// on ajoute la ligne à la fin et on écrit le fichier
+	texte = texte + ligne
+	return os.WriteFile("scores.csv", []byte(texte), 0644)
 }
 
-//affiche tous les scores qui sont dans le fichier
+// affiche tous les scores
 func AfficherScores() error {
-		contenu, err := os.ReadFile("scores.csv")
-		if err != nil {
-			// si le fichier existe pas y a  pas encore de parties
-			fmt.Println("aucune partie")
-			return nil
-		}
-
-		fmt.Println("Pseudo statut essais mot date")
-		//on coupe le fichier ligne par ligne
-		lignes := strings.Split(string(contenu), "\n")
-		for _, ligne := range lignes {
-				// on coupe la ligne a chaque virgule 
-				l := strings.Split(ligne, ",")
-				//si la ligne est vide ou abime on la saute
-				if len(l) < 6 {
-						continue
-				}
-				fmt.Println(l[0], l[1], l[2], l[3], l[4], l[5])
-		}
+	contenu, err := os.ReadFile("scores.csv")
+	if err != nil {
+		// pas de fichier = pas encore de parties
+		fmt.Println("aucune partie")
 		return nil
+	}
 
-}	
+	fmt.Println("Pseudo statut essais mot lettres date")
+
+	// on coupe le fichier ligne par ligne
+	lignes := strings.Split(string(contenu), "\n")
+	for _, ligne := range lignes {
+		// on coupe la ligne à chaque virgule
+		l := strings.Split(ligne, ",")
+		if len(l) < 6 {
+			// ligne vide ou abîmée, on la saute
+			continue
+		} else {
+			fmt.Println(l[0], l[1], l[2], l[3], l[4], l[5])
+		}
+	}
+	return nil
+}
