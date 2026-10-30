@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"os"
 	"strings"
 )
@@ -65,7 +65,7 @@ func ChoisirLettre(mot string) string {
 		}
 	}
 	// letre au hasard
-	i := rand.Intn(len(lettres))
+	i := rand.IntN(len(lettres))
 	return string(lettres[i])
 }
 
@@ -76,7 +76,7 @@ func NouveauMot() (string, string, error) {
 		return "", "", err
 	}
 	// un mot au hasard dans la liste
-	i := rand.Intn(len(mots))
+	i := rand.IntN(len(mots))
 	mot := mots[i]
 	lettre := ChoisirLettre(mot)
 	return mot, lettre, nil
