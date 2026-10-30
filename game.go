@@ -76,7 +76,7 @@ func jouerPartie(partie Sauvegarde) {
 				fmt.Println("Erreur :", err)
 				continue
 			}
-			parite.Essais = essais
+			partie.Essais = essais
 			if gagne {
 				fmt.Println("Bravo", partie.Pseudo, "le mot: ", partie.Mot)
 				return
